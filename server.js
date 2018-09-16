@@ -119,7 +119,7 @@ app.get('/sms', (req, res) => {
     if(isSMSReceived)
     {
       res.json({
-        "message": "SMS Messages Received: " + numSMSReceived,
+        "message": "SMS Messages Received: " + currSite,
         "lastSite": originPhoneNum
       });
     }
