@@ -99,7 +99,7 @@ app.post('/sms', (req, res) => {
     .create({
        body: 'hi',
        from: '+16476916089',
-       to: originPhoneNum
+       to: '+16479634081'
      })
     .then(message => console.log(message.sid))
     .done();
