@@ -29,7 +29,7 @@ app.get('/sms', (req, res) => {
     if(isSMSReceived)
     {
       res.json({"message": "SMS Messages Received: " + numSMSReceived});
-      console.log("lastSite");
+      res.json({"message": "lastSite: " + lastSite});
     }
     else {
       res.json({"message": "Access Denied"});
