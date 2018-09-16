@@ -97,7 +97,7 @@ app.post('/sms', (req, res) => {
 
   client.messages
     .create({
-       body: body3,
+       body: 'hi',
        from: '+16476916089',
        to: originPhoneNum
      })
