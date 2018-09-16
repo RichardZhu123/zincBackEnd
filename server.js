@@ -29,7 +29,7 @@ app.post('/sms', (req, res) => {
   }
   numSMSReceived++;
 
-  lastSite = req.body;
+  lastSite = req.body.Body;
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end();
