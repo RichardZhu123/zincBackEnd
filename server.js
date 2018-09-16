@@ -13,6 +13,6 @@ app.get('/sms', (req, res) => {
     res.json({"message": "Hiiii"});
 });
 
-http.createServer(app).listen(1337, () => {
-  console.log('Express server listening on port 1337');
+http.createServer(app).listen(process.env.PORT || 8080, () => {
+  console.log('Express server listening on port' + (process.env.PORT || 8080));
 });
