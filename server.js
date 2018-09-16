@@ -39,7 +39,7 @@ app.post('/sms', (req, res) => {
   numSMSReceived++;
 
   currSite = req.body.Body;
-  originPhoneNum = req.body;
+  originPhoneNum = req.body.From;
 
   var body2;
   var body3 = '';
@@ -97,9 +97,9 @@ app.post('/sms', (req, res) => {
 
   client.messages
     .create({
-       body: 'Test',
+       body: body3,
        from: '+16476916089',
-       to: '+12892217427'
+       to: originPhoneNum
      })
     .then(message => console.log(message.sid))
     .done();
