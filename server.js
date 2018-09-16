@@ -14,11 +14,8 @@ app.post('/sms', (req, res) => {
     isSMSReceived = true;
   }
   numSMSReceived++;
-  /*const MessagingResponse = require('twilio').twiml.MessagingResponse;
-  const response = new MessagingResponse();
-  const message = response.message();
 
-  lastSite = response.toString()); */
+  lastSite = res.message().toString());
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
