@@ -4,15 +4,23 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const app = express();
 
+var isSMSReceived = false;
+
 app.post('/sms', (req, res) => {
-  console.log('Message Received');
+  isSMSReceived = true;
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 });
 
 // a page for when this link is viewed
 app.get('/sms', (req, res) => {
-    res.json({"message": "Hiiii"});
+    if(isSMSReceived)
+    {
+      res.json({"message": "SMS Message Received"});
+    }
+    else {
+      res.json({"message": "Access Denied"});
+    }
 });
 
 http.createServer(app).listen(process.env.PORT || 8080, () => {
