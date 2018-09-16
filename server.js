@@ -15,7 +15,7 @@ app.post('/sms', (req, res) => {
   }
   numSMSReceived++;
 
-  lastSite = res.message().toString());
+  lastSite = req.message().toString());
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
