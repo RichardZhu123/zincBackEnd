@@ -105,13 +105,9 @@ app.post('/sms', (req, res) => {
   }
 
 
-
-  console.log(body3.toString());
-
   res.writeHead(200, {'Content-Type': 'text/xml'});
   //res.end(body3.toString());
-  //res.end(twiml.toString());
-  res.end();
+  res.end(twiml.toString());
 });
 
 // a page for when this link is viewed
