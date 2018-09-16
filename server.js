@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -28,24 +29,33 @@ app.post('/sms', (req, res) => {
   }
   numSMSReceived++;
 
-  //lastSite = req.message().toString());
+  lastSite = req.body;
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+  res.end();
+  //res.end(twiml.toString());
 });
 
 // a page for when this link is viewed
 app.get('/sms', (req, res) => {
     if(isSMSReceived)
     {
-      res.json({"message": "SMS Messages Received: " + numSMSReceived});
-      res.json({"message": "lastSite: " + lastSite});
+      res.json({
+        "message": "SMS Messages Received: " + numSMSReceived,
+        "lastSite": lastSite
+      });
     }
     else {
       res.json({"message": "Access Denied"});
     }
 });
 
+/** production
+http.createServer(app).listen(8080, () => {
+  console.log('Express server listening on port ' + 8080);
+}); */
+
+/** deployment */
 http.createServer(app).listen(process.env.PORT || 8080, () => {
   console.log('Express server listening on port' + (process.env.PORT || 8080));
 });
