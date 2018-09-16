@@ -5,9 +5,14 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const app = express();
 
 var isSMSReceived = false;
+var numSMSReceived = 0;
 
 app.post('/sms', (req, res) => {
-  isSMSReceived = true;
+
+  if(!isSMSReceived) {
+    isSMSReceived = true;
+  }
+  numSMSReceived++;
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 });
@@ -16,7 +21,7 @@ app.post('/sms', (req, res) => {
 app.get('/sms', (req, res) => {
     if(isSMSReceived)
     {
-      res.json({"message": "SMS Message Received"});
+      res.json({"message": "SMS Messages Received: " + numSMSReceived});
     }
     else {
       res.json({"message": "Access Denied"});
