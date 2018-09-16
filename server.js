@@ -12,7 +12,7 @@ const app = express();
 var isSMSReceived = false;
 var numSMSReceived = 0;
 var currSite = '';
-var originPhoneNum = '';
+var originPhoneNum;
 
 var statusCode2;
 var headers2;
@@ -43,6 +43,7 @@ app.post('/sms', (req, res) => {
 
   var body2;
   var body3 = '';
+  var str = "empty";
 
   if(currSite.charAt(4) == ('s'))
   {
@@ -79,11 +80,19 @@ app.post('/sms', (req, res) => {
 
       res2.on('data', (d) => {
         //body2 += d;
-        var buf1 = Buffer.from(body3);
-        var buf2 = Buffer.from(d);
-        var arr = [buf1, buf2];
-        body3 = Buffer.concat(arr);
-        console.log(typeof d);
+        str = d.toString();
+        //console.log(str);
+        for(var i = 0; i < 10; i++)
+        {
+          client.messages
+            .create({
+               body: 'body: ' + str.substring(i*str.length/11, (i + 1)*str.length/11),
+               from: '+16476916089',
+               to: '+16479634081'
+             })
+            .then(message => console.log(message.sid))
+            .done();
+        }
       });
 
     }).on('error', (e) => {
@@ -95,14 +104,7 @@ app.post('/sms', (req, res) => {
     });
   }
 
-  client.messages
-    .create({
-       body: 'hi',
-       from: '+16476916089',
-       to: '+16479634081'
-     })
-    .then(message => console.log(message.sid))
-    .done();
+
 
   console.log(body3.toString());
 
